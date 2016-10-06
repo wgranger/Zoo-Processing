@@ -36,7 +36,10 @@
     "history": "^1.13.1",
     "react": "^0.14.0",
     "react-dom": "^0.14.0",
-    "react-router": "1.0.0-rc3"
+    "react-router": "1.0.0-rc3",
+    
+    "react-loadscript": "^1.0.2",
+    "processing-js": "1.6.2"
   },
   "devDependencies": {
     "autoprefixer": "^6.0.0",

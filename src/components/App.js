@@ -15,6 +15,7 @@ export default class App extends React.Component {
       <div>
         <header className="site-header">
           <h1 className="title">React Starterify {version}</h1>
+          <Link to="/example" className="link">Example</Link>
           <Link to="/about" className="link">About</Link>
           <Link to="/poweredby" className="link">Powered by</Link>
         </header>
