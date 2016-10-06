@@ -42,20 +42,27 @@ export default class Example3D extends React.Component {
   initProcessing() {
     if (!window.Processing) return;  //Processing is initialised by the react-loadscript.
 
+    //3D setup
+    //--------------------------------
     this.pSketch = new window.Processing.Sketch();
     this.pSketch.use3DContext = true;
-    this.pSketch.imageCache.add(textureBricks);
+    this.pSketch.imageCache.add(textureBricks);  //Preload image
     this.pSketch.attachFunction = this.sketch.bind(this);
     this.p = new Processing(this.refs.myCanvas, this.pSketch);
+    //--------------------------------
     
     return null;  //We have to return a "React component" or null.
   }
   
   sketch(processing) {
+    //Example 3D block from http://processingjs.org/learning/
+    //Put your own code here!
+    //--------------------------------
     var tex;
     var rotx = Math.PI/4;
     var roty = Math.PI/4;
 
+    //Setup
     processing.setup = function() {
       processing.size(640, 360, processing.P3D);
       tex = processing.loadImage(textureBricks);
@@ -64,6 +71,7 @@ export default class Example3D extends React.Component {
       processing.stroke(processing.color(44,48,32));
     };
 
+    //Draw cycle
     processing.draw = function() {
       processing.background(0);
       processing.noStroke();
@@ -73,20 +81,12 @@ export default class Example3D extends React.Component {
       processing.rotateY(roty);
       processing.scale(90);
       texturedCube(tex);
-    }
+    };
 
+    //"Create Cube" function
     function texturedCube(tex) {
       processing.beginShape(processing.QUADS);
       processing.texture(tex);
-
-      // Given one texture and six faces, we can easily set up the uv coordinates
-      // such that four of the faces tile "perfectly" along either u or v, but the other
-      // two faces cannot be so aligned.  This code tiles "along" u, "around" the X/Z faces
-      // and fudges the Y faces - the Y faces are arbitrarily aligned such that a
-      // rotation along the X axis will put the "top" of either texture at the "top"
-      // of the screen, but is not otherwised aligned with the X/Z faces. (This
-      // just affects what type of symmetry is required if you need seamless
-      // tiling all the way around the cube)
 
       // +Z "front" face
       processing.vertex(-1, -1,  1, 0, 0);
@@ -127,11 +127,12 @@ export default class Example3D extends React.Component {
       processing.endShape();
     }
 
-    // mouse event
+    //User Input
     processing.mouseDragged = function() {
       var rate = 0.01;
       rotx += (processing.pmouseY-processing.mouseY) * rate;
       roty += (processing.mouseX-processing.pmouseX) * rate;
     };
   }
+  //--------------------------------
 }
